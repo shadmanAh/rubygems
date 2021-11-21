@@ -8,6 +8,20 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import "jquery"
+import "popper.js"
+import "bootstrap"
+
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import 'bootstrap/dist/js/bootstrap'
+import 'bootstrap/dist/css/bootstrap'
+require("stylesheets/application.scss")
+
+import '../js/bootstrap_js_files.js'
+
+require("trix")
+require("@rails/actiontext")
