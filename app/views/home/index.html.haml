@@ -1,12 +1,76 @@
 
-.fa.fa-flag
-.fab.fa-amazon
-= link_to root_path do
-  %i.fa.fa-home
+.jumbotron
+  .display-4
+    What do you want to learn today?
 
-%br/
-%br/
+  .p-4
+  .col-md-4
+  - if current_user
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+      .input-group 
+        = f.search_field :title_or_short_description_cont, class: 'form-control', style: 'float: left; width: 150px;', placeholder: "Find a course"
+        %span.input-group-append
+          %button.btn.btn-primary.btn-xm{:type => "submit"} 
+            %span.fa.fa-search{"aria-hidden" => "true"}
 
-= link_to courses_path, class: 'btn btn-success' do
-  %i.fa.fa-book
-  Course
+  -# .col-md-4
+  -#   .form-inline.my-2.my-lg-0
+  -#     = form_tag(courses_path, method: :get) do
+  -#       .input-group 
+  -#         = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control'
+  -#         %span.input-group-append
+  -#           %button.btn.btn-primary.btn-xm{:type => "submit"}
+  -#             %span.fa.fa-search{"aria-hidden" => "true"}
+
+.p-3
+.card-group 
+  .card.card-body 
+    %h1
+      .fa.fa-graduation-cap 
+    = Course.count
+    online courses
+    .row 
+    Explore a variety of fresh topics 
+  .card.card-body 
+    %h1
+      .fa.fa-chalkboard-teacher 
+    = Course.distinct.count(:user_id)
+    expert instructors
+    .row 
+    Find the right instructor for you
+  .card.card-body 
+    %h1
+      .fa.fa-user-graduate 
+    = User.count
+    active learners
+    .row 
+    Join the knowledge sharing community
+  .card.card-body 
+    %h1
+      .fa.fa-infinity 
+    = Course.count
+    Lifetime access
+    .row 
+    Learn on your schedule
+
+
+
+%hr
+%h2
+  Popular courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+%hr
+%h2
+  Top rated courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+%hr
+%h2
+  Latest courses
+.card-columns
+  - @latest_courses.each do |course|
+    = render 'courses/course', course: course
+%hr
